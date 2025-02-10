@@ -16,7 +16,10 @@ const EditBook = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
+    const token = localStorage.getItem('token');
+    axios.get(`http://localhost:5555/books/${id}`,{
+      headers: { Authorization: `Bearer ${token}` }, // Pass token
+    } )
     .then((response) => {
         setAuthor(response.data.author);
         setPublishYear(response.data.publishYear)
@@ -30,6 +33,7 @@ const EditBook = () => {
   }, [])
   
   const handleEditBook = () => {
+    const token = localStorage.getItem('token');
     const data = {
       title,
       author,
@@ -37,7 +41,9 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, data)
+      .put(`http://localhost:5555/books/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },  // Pass token
+      })
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Edited successfully', { variant: 'success' });

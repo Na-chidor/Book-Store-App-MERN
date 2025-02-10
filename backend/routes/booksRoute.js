@@ -1,39 +1,35 @@
 import express from 'express';
 import { Book } from '../models/bookModel.js';
+import authMiddleware from '../middleware/authmiddleware.js';
 
 const router = express.Router();
 
 // Route for Save a new Book
-router.post('/', async (request, response) => {
+router.post('/', authMiddleware, async (request, response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    const { title, author, publishYear } = request.body;
+    const userId = request.user.id; // Get user ID from the authenticated request
+
+    if (!title || !author || !publishYear) {
       return response.status(400).send({
         message: 'Send all required fields: title, author, publishYear',
       });
     }
-    const newBook = {
-      title: request.body.title,
-      author: request.body.author,
-      publishYear: request.body.publishYear,
-    };
 
-    const book = await Book.create(newBook);
+    const newBook = new Book({ title, author, publishYear, userId });
+    await newBook.save();
 
-    return response.status(201).send(book);
+    return response.status(201).send(newBook);
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
-
 // Route for Get All Books from database
-router.get('/', async (request, response) => {
+router.get('/', authMiddleware, async (request, response) => {
   try {
-    const books = await Book.find({});
+    const userId = request.user.id; // Get the logged-in user's ID
+    const books = await Book.find({ userId }); // Filter books by userId
 
     return response.status(200).json({
       count: books.length,

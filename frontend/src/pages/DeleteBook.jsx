@@ -12,9 +12,12 @@ const DeleteBook = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleDeleteBook = () => {
+    const token = localStorage.getItem('token'); 
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/books/${id}`)
+      .delete(`http://localhost:5555/books/${id}`,{
+        headers: { Authorization: `Bearer ${token}` }, // Pass token
+      } )
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Deleted successfully', { variant: 'success' });

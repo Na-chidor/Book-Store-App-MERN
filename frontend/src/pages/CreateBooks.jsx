@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
@@ -13,7 +13,10 @@ const CreateBooks = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+ 
+
   const handleSaveBook = () => {
+    const token = localStorage.getItem('token');
     const data = {
       title,
       author,
@@ -21,7 +24,8 @@ const CreateBooks = () => {
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/books', data)
+      .post('http://localhost:5555/books', data, {
+        headers: { Authorization: `Bearer ${token}` },} )
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
@@ -76,4 +80,4 @@ const CreateBooks = () => {
   );
 }
 
-export default CreateBooks
+export default CreateBooks;
