@@ -17,7 +17,7 @@ const EditBook = () => {
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem('token');
-    axios.get(`http://localhost:5555/books/${id}`,{
+    axios.get(`https://book-store-app-mern-ten.vercel.app/books/${id}`,{
       headers: { Authorization: `Bearer ${token}` }, // Pass token
     } )
     .then((response) => {
@@ -41,7 +41,7 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, data, {
+      .put(`https://book-store-app-mern-ten.vercel.app/books/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },  // Pass token
       })
       .then(() => {

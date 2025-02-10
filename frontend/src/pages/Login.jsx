@@ -11,7 +11,7 @@ const Login = ({ setToken }) => {
 
     const handleLogin = async () => {
         try {
-            const { data } = await axios.post('http://localhost:5555/auth/login', { email, password });
+            const { data } = await axios.post('https://book-store-app-mern-ten.vercel.app/auth/login', { email, password });
             localStorage.setItem('token', data.token);
             enqueueSnackbar('Login successful', { variant: 'success' });
             navigate('/home');

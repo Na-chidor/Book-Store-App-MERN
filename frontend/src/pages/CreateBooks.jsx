@@ -24,7 +24,7 @@ const CreateBooks = () => {
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/books', data, {
+      .post('https://book-store-app-mern-ten.vercel.app/books', data, {
         headers: { Authorization: `Bearer ${token}` },} )
       .then(() => {
         setLoading(false);
