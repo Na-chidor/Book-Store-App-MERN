@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "https://book-store-app-mern-phi.vercel.app/", // Allow frontend
+  origin: "https://book-store-app-mern-phi.vercel.app", // Allow frontend
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true
 }));
