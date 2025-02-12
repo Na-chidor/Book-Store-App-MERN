@@ -6,6 +6,7 @@ import authRoute from '../routes/authRoute.js';
 import cors from 'cors';
 import bodyParser from "body-parser"; 
 import dotenv from "dotenv";
+import { createServer } from 'http';
 dotenv.config();
 
 const app = express();
@@ -18,7 +19,7 @@ app.use(bodyParser.json());
 // Option 1: Allow All Origins with Default of cors(*)
 // Option 2: Allow Custom Origins
 app.use(cors({
-  origin: "hhttps://book-store-app-mern-phi.vercel.app/", // Allow frontend
+  origin: "https://book-store-app-mern-phi.vercel.app/", // Allow frontend
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true
 }));
@@ -40,4 +41,6 @@ mongoose.connect(process.env.MONGO_URI, {
 }).catch(err => {
   console.error('MongoDB connection error:', err);
 });
+const server = createServer(app);
 
+export default server;
