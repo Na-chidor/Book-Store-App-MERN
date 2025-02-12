@@ -1,5 +1,5 @@
 import express from 'express';
-import { PORT, mongoDBURL } from '../config.js';
+import { mongoDBURL } from './config.js';
 import mongoose from 'mongoose';
 import booksRoute from '../routes/booksRoute.js';
 import authRoute from '../routes/authRoute.js';
@@ -29,7 +29,7 @@ app.get('/', (request, response) => {
 app.use('/books', booksRoute);
 app.use('/auth', authRoute);
 
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(mongoDBURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
