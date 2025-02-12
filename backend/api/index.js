@@ -15,11 +15,13 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: "https://book-store-app-mern-phi.vercel.app", // Allow frontend
+  origin: [
+    "https://book-store-app-mern-phi.vercel.app",  // Frontend URL
+    "https://book-store-app-mern-51qe3pyh3-na-chidors-projects.vercel.app",  // Latest backend URL
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true
 }));
-// );
 
 app.get('/', (request, response) => {
   console.log(request);
