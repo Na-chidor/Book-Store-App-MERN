@@ -11,13 +11,9 @@ dotenv.config();
 
 const app = express();
 
-// Middleware for parsing request body
 app.use(express.json());
 app.use(bodyParser.json());
-// app.use(cors());
-// Middleware for handling CORS POLICY
-// Option 1: Allow All Origins with Default of cors(*)
-// Option 2: Allow Custom Origins
+
 app.use(cors({
   origin: "https://book-store-app-mern-phi.vercel.app/", // Allow frontend
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -27,7 +23,7 @@ app.use(cors({
 
 app.get('/', (request, response) => {
   console.log(request);
-  return response.status(234).send('Welcome To MERN Stack Tutorial');
+  return response.status(234).send('Welcome to mern-book-store-api');
 });
 
 app.use('/books', booksRoute);
