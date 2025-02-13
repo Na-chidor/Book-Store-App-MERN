@@ -20,7 +20,7 @@ const Register = () => {
 
     setLoading(true);
     axios
-      .post('https://book-store-app-mern-ten.vercel.app/auth/register', data)
+      .post('https://book-store-app-mern-api.vercel.app/auth/register', data)
       .then((response) => {
         setLoading(false);
         navigate('/login'); // Redirect to login page after successful registration

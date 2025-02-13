@@ -15,7 +15,7 @@ const DeleteBook = () => {
     const token = localStorage.getItem('token'); 
     setLoading(true);
     axios
-      .delete(`https://book-store-app-mern-ten.vercel.app/books/${id}`,{
+      .delete(`https://book-store-app-mern-api.vercel.app/books/${id}`,{
         headers: { Authorization: `Bearer ${token}` }, // Pass token
       } )
       .then(() => {
