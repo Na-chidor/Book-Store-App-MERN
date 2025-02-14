@@ -23,24 +23,28 @@ const Home = () => {
   }, [navigate]); // Include navigate as a dependency
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login'); // Redirect if no token
+      return;
+    }
+  
     setLoading(true);
     axios
-      .get('https://book-store-app-mern-api.vercel.app/books')
+      .get('https://book-store-app-mern-api.vercel.app/books', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send token for authentication
+        },
+      })
       .then((response) => {
-        setBooks(response.data.data);
+        setBooks(response.data.data); // Set only the user's books
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
-
-  const handleLogout = () => {
-    // Clear authentication (remove token from localStorage)
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
+  }, [navigate]); // Include navigate in dependencies  
 
   return (
     <div className="p-4">
