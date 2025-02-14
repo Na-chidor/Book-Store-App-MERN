@@ -17,14 +17,6 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      // If there's no token, redirect to login
-      navigate('/login');
-    }
-  }, [navigate]); // Include navigate as a dependency
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
       navigate('/login'); // Redirect if no token
       return;
     }
@@ -44,7 +36,14 @@ const Home = () => {
         console.log(error);
         setLoading(false);
       });
-  }, [navigate]); // Include navigate in dependencies  
+  }, [navigate]); // Include navigate in dependencies
+  
+
+  const handleLogout = () => {
+    // Clear authentication (remove token from localStorage)
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
 
   return (
     <div className="p-4">
