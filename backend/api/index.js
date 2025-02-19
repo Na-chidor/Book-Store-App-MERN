@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from 'express';
 import { mongoDBURL } from './config.js';
 import mongoose from 'mongoose';
@@ -5,10 +7,9 @@ import booksRoute from '../routes/booksRoute.js';
 import authRoute from '../routes/authRoute.js';
 import cors from 'cors';
 import bodyParser from "body-parser"; 
-import dotenv from "dotenv";
 import { createServer } from 'http';
-dotenv.config();
 
+// const PORT = process.env.PORT || 5555; 
 const app = express();
 
 app.use(express.json());
@@ -40,6 +41,9 @@ mongoose.connect(mongoDBURL, {
 }).catch(err => {
   console.error('MongoDB connection error:', err);
 });
-const server = createServer(app);
 
+const server = createServer(app);
+// server.listen(PORT, () => {
+//   console.log(`🚀 Server is running on http://localhost:${PORT}`);
+// });
 export default server;
